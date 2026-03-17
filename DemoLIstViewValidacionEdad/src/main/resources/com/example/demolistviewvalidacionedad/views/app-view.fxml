@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demolistviewvalidacionedad.controllers.AppControllers">
+<VBox prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demolistviewvalidacionedad.controllers.AppControllers">
     <children>
         <Label text="Lista de personas" />
         <GridPane>
@@ -31,9 +30,10 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#onReload" text="Recargar" />
                 <Button mnemonicParsing="false" onAction="#onAdd" text="Agregar" />
+            <Button mnemonicParsing="false" onAction="#onUpdate" text="Actualizar" />
+            <Button mnemonicParsing="false" onAction="#onDelete" text="Eliminar" />
             </children></HBox>
         <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" />
         <Label fx:id="lblMsg" />
     </children>
 </VBox>
-

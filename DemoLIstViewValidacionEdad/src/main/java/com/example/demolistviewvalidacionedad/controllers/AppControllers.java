@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.lang.invoke.StringConcatFactory;
 import java.util.List;
 
 public class AppControllers {
@@ -38,6 +39,11 @@ public class AppControllers {
     @FXML
     public void initialize(){
         loadFromFile();
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldValue,newValue) ->{
+                loadDataToForm(String.valueOf(newValue));
+                }
+        );
         listView.setItems(data);
     }
 
@@ -80,6 +86,67 @@ public class AppControllers {
 
 
     }
+
+    @FXML
+    public void onUpdate(){
+        try {
+            String name=txtName.getText();
+            String email=txtEmail.getText();
+            String ageText=txtAge.getText();
+            int age = Integer.parseInt(ageText);
+            int index = listView.getSelectionModel().getSelectedIndex();
+            service.updatePerson(index, name, email, age);
+
+
+
+
+            lblMsg.setText("Persona creada con exito");
+            lblMsg.setStyle("-fx-text-fill: green");
+            txtEmail.clear();
+            txtName.clear();
+            txtAge.clear();
+
+            loadFromFile();
+        }catch (NumberFormatException e){
+            lblMsg.setText("La edad debe ser +18");
+            lblMsg.setStyle("-fx-text-fill: red");
+
+        } catch (IOException e){
+            lblMsg.setText("Hubo un error con el archivo");
+            lblMsg.setStyle("-fx-text-fill: red");
+
+        }catch (IllegalArgumentException e){
+            lblMsg.setText("Hubo un error "+e.getMessage());
+            lblMsg.setStyle("-fx-text-fill: red");
+
+        }
+
+
+    }
+
+    @FXML
+    public void onDelete(){
+        try{
+            String selectedItem = listView.getSelectionModel().getSelectedItem();
+            int selectedIndex = listView.getSelectionModel().getSelectedIndex();
+
+            if (selectedItem == null || selectedIndex < 0) {
+                lblMsg.setText("Debe seleccionar un elemento para eliminar");
+                lblMsg.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            service.deletePerson(selectedIndex);
+            lblMsg.setText("Persona eliminada con éxito");
+            lblMsg.setStyle("-fx-text-fill: green;");
+
+            loadFromFile();
+        } catch (IOException e) {
+            lblMsg.setText("Error al eliminar del archivo");
+            lblMsg.setStyle("-fx-text-fill: red;");
+
+        }
+    }
     private void loadFromFile(){
         try{
             List<String> items = service.loadDataForListView();
@@ -92,4 +159,11 @@ public class AppControllers {
         }
 
     }
+     private void loadDataToForm(String data){
+        String[] parts = data.split(" , ");
+        txtName.setText(parts[0]);
+        txtEmail.setText(parts[1]);
+        txtAge.setText(parts [2]);
+     }
+
 }
