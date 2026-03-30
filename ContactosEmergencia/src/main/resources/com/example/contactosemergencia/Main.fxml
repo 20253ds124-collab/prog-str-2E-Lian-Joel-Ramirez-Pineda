@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controller.Controller">
+    <children>
+        <TextField fx:id="txtNombre" layoutX="50" layoutY="30" promptText="Nombre" />
+        <TextField fx:id="txtTelefono" layoutX="50" layoutY="70" promptText="Teléfono" />
+        <ComboBox fx:id="cmbParentesco" layoutX="50" layoutY="110" prefWidth="150" />
+
+        <Button text="Agregar" layoutX="250" layoutY="30" onAction="#agregar" />
+        <Button text="Buscar" layoutX="250" layoutY="70" onAction="#buscar" />
+        <Button text="Actualizar" layoutX="250" layoutY="110" onAction="#actualizar" />
+        <Button text="Eliminar" layoutX="250" layoutY="150" onAction="#eliminar" />
+        <Button text="Limpiar" layoutX="250" layoutY="190" onAction="#limpiar" />
+
+        <ListView fx:id="listContactos" layoutX="50" layoutY="160" prefWidth="180" prefHeight="200" />
+    </children>
+</AnchorPane>
